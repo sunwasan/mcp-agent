@@ -6,7 +6,11 @@ A Python project for analyzing stock information and providing investment insigh
 
 This project utilizes AI agents to gather and process financial data. It uses web scraping and search tools to collect information about stocks, focusing on financial health and pricing. The primary goal is to identify promising investment opportunities, particularly in the Thai stock market.
 
-The project is structured with a main application (`main.py`), agent definitions (e.g., `src/python/agents/search_agent.py`), and various tools for web interaction (`src/python/tools/craw4ai.py`, `src/python/tools/webscraper.py`). A Jupyter notebook (`src/jupyter/scraper_agent.ipynb`) is also included for interactive development and testing of the scraping and agent functionalities.
+The project is structured with a main application (`main.py`), agent definitions (e.g., `src/python/agents/search_agent.py`, `src/python/agents/analyst_agent.py`), and various tools for web interaction (`src/python/tools/craw4ai.py`, `src/python/tools/webscraper.py`). A Jupyter notebook (`src/jupyter/notebook.ipynb`) is also included for interactive development and testing of the agent functionalities.
+
+The core agents are:
+*   **`search_agent`**: This agent is responsible for finding the most relevant and up-to-date information from websites. It uses `web_grounding` and `crawl` tools to gather data and summarizes it in Thai. It focuses on data within the current week.
+*   **`analyst_agent`**: This agent acts as a financial analyst. It interprets user queries, plans what information is needed, and uses the `search_agent` to collect comprehensive data from various sources (news, economic factors, expert opinions, financial data). It then analyzes this information and provides a summary in Thai.
 
 ## Installation
 
@@ -50,9 +54,9 @@ The main entry point of the application is `main.py`.
 python main.py
 ```
 
-You can also explore and run the agent interactions directly within the `src/jupyter/scraper_agent.ipynb` notebook. This notebook demonstrates how to:
+You can also explore and run the agent interactions directly within the `src/jupyter/notebook.ipynb` notebook. This notebook demonstrates how to:
 - Import necessary libraries and tools.
-- Define and configure the `search_agent`.
+- Define and configure the `search_agent` and `analyst_agent`.
 - Run the agent with a specific query (e.g., "Pick one good financial health with cheap price stock to invest in thailand now.").
 - View the agent's thought process, including tool usage and final response.
 
@@ -71,13 +75,15 @@ These tools are utilized by the `search_agent` to gather information.
 ├── main.py                 # Main entry point for the application
 ├── pyproject.toml          # Project metadata and dependencies
 ├── README.md               # This file
+├── requirements.txt        # Project dependencies (often generated from pyproject.toml)
 ├── uv.lock                 # Lock file for uv package manager
 ├── src/
 │   ├── jupyter/
-│   │   └── scraper_agent.ipynb # Jupyter notebook for agent interaction and testing
+│   │   └── notebook.ipynb      # Jupyter notebook for agent interaction and testing
 │   ├── python/
 │   │   ├── agents/
-│   │   │   └── search_agent.py # (Currently empty, agent logic is in the notebook)
+│   │   │   ├── analyst_agent.py # Defines the financial analyst agent
+│   │   │   └── search_agent.py  # Defines the web search agent
 │   │   └── tools/
 │   │       ├── craw4ai.py      # Wrapper for the crawl4ai library
 │   │       └── webscraper.py   # Tool for web search using DuckDuckGo
